@@ -1,6 +1,8 @@
 import lgpio
 import time
 from fastapi import FastAPI, Header, HTTPException
+from fastapi.responses import FileResponse
+
 
 app = FastAPI()
 
@@ -23,3 +25,7 @@ def power(x_auth: str = Header(None)):
         raise HTTPException(status_code=403)
     press_power()
     return {"status": "ok"}
+
+@app.get("/")
+def index():
+    return FileResponse("index.html")

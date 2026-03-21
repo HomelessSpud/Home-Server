@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Remote PC Power</title>
+    <style>
+        body {
+            background: #1e1e1e;
+            color: white;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .button {
+            background: #4CAF50;
+            padding: 20px 40px;
+            border-radius: 10px;
+            font-size: 24px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .button:hover {
+            background: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="button" onclick="powerOn()">Turn PC On</div>
+
+    <script>
+        function powerOn() {
+            fetch('/api/power', {
+                method: 'POST',
+                headers: { 'X-Auth': 'Event' }
+            })
+            .then(r => {
+                if (r.ok) alert('Power signal sent!');
+                else alert('Authentication failed.');
+            })
+            .catch(() => alert('Error contacting server.'));
+        }
+    </script>
+</body>
+</html>

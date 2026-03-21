@@ -1,45 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Remote PC Power</title>
+    <title>PC Control</title>
     <style>
-        body {
-            background: #1e1e1e;
-            color: white;
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .button {
-            background: #4CAF50;
-            padding: 20px 40px;
-            border-radius: 10px;
-            font-size: 24px;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .button:hover {
-            background: #45a049;
-        }
+        body { font-family: Arial, sans-serif; background: #111; color: #eee; text-align: center; padding-top: 80px; }
+        button { padding: 15px 30px; font-size: 20px; border: none; border-radius: 8px; cursor: pointer; background: #4CAF50; color: white; }
+        button:hover { background: #45a049; }
     </style>
 </head>
 <body>
-    <div class="button" onclick="powerOn()">Turn PC On</div>
+    <h1>PC Control Panel</h1>
+    <button onclick="power()">Toggle Power</button>
 
     <script>
-        function powerOn() {
+        function power() {
             fetch('/api/power', {
                 method: 'POST',
-                headers: { 'X-Auth': 'Event' }
+                headers: { 'X-Auth': 'YOUR_SECRET_TOKEN' }
             })
-            .then(r => {
-                if (r.ok) alert('Power signal sent!');
-                else alert('Authentication failed.');
-            })
-            .catch(() => alert('Error contacting server.'));
+            .then(r => r.json())
+            .then(d => alert('Power command sent'))
+            .catch(e => alert('Error: ' + e));
         }
     </script>
 </body>
