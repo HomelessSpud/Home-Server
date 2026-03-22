@@ -14,6 +14,10 @@ h = lgpio.gpiochip_open(0)
 # Set pin as output
 lgpio.gpio_claim_output(h, POWER_PIN)
 
+@app.get("/")
+def index():
+    return FileResponse("index.html")
+
 def press_power():
     lgpio.gpio_write(h, POWER_PIN, 1)
     time.sleep(0.3)
@@ -25,7 +29,3 @@ def power(x_auth: str = Header(None)):
         raise HTTPException(status_code=403)
     press_power()
     return {"status": "ok"}
-
-@app.get("/")
-def index():
-    return FileResponse("index.html")
