@@ -18,7 +18,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
-    return send_from_directory("/home/ethan/Documents/Server/Home-Server-PC-Switch/", "index.html")
+    return send_from_directory("/home/ethan/Documents/Server/Home-Server/", "index.html")
 
 @app.route("/api/power", methods=["POST"])
 def power():
